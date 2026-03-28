@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trading Backtest Manager</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="app">
+
+  <div class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">T</div>
+      <div>
+        <div class="logo-text">Backtest Manager</div>
+        <div class="logo-sub">Pro Trading Suite</div>
+      </div>
+    </div>
+    <nav>
+      <div class="nav-section">Principal</div>
+      <button class="nav-btn active" onclick="showPage('dashboard')"><span class="nav-icon">📊</span>Dashboard</button>
+      <button class="nav-btn" onclick="showPage('trades')"><span class="nav-icon">📋</span>Operaciones</button>
+      <button class="nav-btn" onclick="showPage('add-trade')"><span class="nav-icon">➕</span>Nueva Operación</button>
+      <div class="nav-section">Análisis</div>
+      <button class="nav-btn" onclick="showPage('weekly')"><span class="nav-icon">📅</span>Semanal</button>
+      <button class="nav-btn" onclick="showPage('monthly')"><span class="nav-icon">🗓️</span>Mensual</button>
+      <button class="nav-btn" onclick="showPage('compare')"><span class="nav-icon">⚖️</span>Comparar</button>
+      <div class="nav-section">Configuración</div>
+      <button class="nav-btn" onclick="showPage('strategies')"><span class="nav-icon">🎯</span>Estrategias</button>
+      <button class="nav-btn" onclick="showPage('settings')"><span class="nav-icon">⚙️</span>Ajustes</button>
+    </nav>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <h1 id="page-title">Dashboard</h1>
+      <div class="filter-bar">
+        <select id="filter-strategy" onchange="applyFilters()">
+          <option value="">Todas las estrategias</option>
+        </select>
+        <select id="filter-month" onchange="applyFilters()">
+          <option value="">Todos los meses</option>
+        </select>
+        <button class="btn btn-secondary btn-sm" onclick="exportCSV()">⬇ CSV</button>
+        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('import-input').click()">⬆ Importar</button>
+        <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)">
+      </div>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<div class="modal-bg hidden" id="modal-bg">
+  <div class="modal" id="modal">
+    <h2>
+      <span id="modal-title">Nueva Operación</span>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </h2>
+    <div class="form-grid" id="modal-form"></div>
+    <div class="btn-bar">
+      <button class="btn btn-primary" onclick="saveTradeFromModal()">Guardar</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
